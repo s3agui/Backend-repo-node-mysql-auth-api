@@ -65,7 +65,7 @@ function revokeToken(req: any, res: any, next: any) {
 
     if (!token) return res.status(400).json({ message: 'Token is required' });
 
-    if ((!req.auth.ownsToken(token)) && req.auth.role !== Role.Admin) {
+    if ((!req.user.ownsToken(token)) && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 
@@ -188,7 +188,7 @@ function updateSchema(req: any, res: any, next: any) {
         confirmPassword: Joi.string().valid(Joi.ref('password')).empty(''),
         role: Joi.string().valid('Admin', 'User').empty('')
     };
-    if (req.auth.role !== Role.Admin) {
+    if (req.user.role !== Role.Admin) {
         schemaRules.role = Joi.string().valid(Role.Admin, Role.User).empty('');
     }
     const schema = Joi.object(schemaRules).with('password', 'confirmPassword');
@@ -196,7 +196,7 @@ function updateSchema(req: any, res: any, next: any) {
 }
 
 function update(req: any, res: any, next: any) {
-    if (Number(req.params.id) !== req.auth.id && req.auth.role !== Role.Admin) {
+    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
     accountService.update(req.params.id, req.body)
@@ -205,7 +205,7 @@ function update(req: any, res: any, next: any) {
 }
 
 function _delete(req: any, res: any, next: any) {   
-    if (Number(req.params.id) !== req.auth.id && req.auth.role !== Role.Admin) {
+    if (Number(req.params.id) !== req.user.id && req.user.role !== Role.Admin) {
         return res.status(401).json({ message: 'Unauthorized' });
     }
 

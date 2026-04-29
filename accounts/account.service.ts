@@ -182,7 +182,8 @@ async function update(id: any, params: any) {
 }
 
 async function _delete(id: any) {
-    const account = await getAccount(id);
+    const account = await db.Account.findByPk(id);
+    if (!account) throw 'Account not found';
     await account.destroy();
 }
 
