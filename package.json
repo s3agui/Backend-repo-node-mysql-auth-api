@@ -4,7 +4,7 @@
   "description": "",
   "license": "ISC",
   "author": "",
-"main": "index.js",
+  "main": "index.js",
   "build": "tsc",
   "scripts": {
     "start": "ts-node ./server.ts",
@@ -13,5 +13,8 @@
   },
   "devDependencies": {
     "tsx": "^4.21.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2"
   }
 }

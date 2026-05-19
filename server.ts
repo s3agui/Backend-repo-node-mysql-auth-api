@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
@@ -12,12 +13,17 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(cors({origin: (origin, callback) => callback(null, true), credentials: true}));
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || 'http://localhost:4200',
+    credentials: true
+}));
 
 app.use('/accounts', accountsController);
 app.use('/api-docs', swaggerDocs);
-
 app.use(errorHandler);
 
-const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
+const port = process.env.NODE_ENV === 'production'
+    ? (process.env.PORT || 80)
+    : 4000;
+
 app.listen(port, () => console.log('Server listening on port ' + port));
