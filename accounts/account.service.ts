@@ -1,4 +1,3 @@
-import config from '../config.json';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import crypto from 'crypto';
@@ -203,7 +202,11 @@ async function hash(password: any) {
 }
 
 function generateJwtToken(account: any) {
-    return jwt.sign({ sub: account.id, id: account.id }, process.env.JWT_SECRET || config.secret, { expiresIn: '15m' });
+    return jwt.sign(
+        { sub: account.id, id: account.id }, 
+        process.env.JWT_SECRET || 'fallback-secret', 
+        { expiresIn: '15m' }
+    );
 }
 
 function generateRefreshToken(account: any, ipAddress: any) {

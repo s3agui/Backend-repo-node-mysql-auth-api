@@ -1,8 +1,5 @@
 import { expressjwt as jwt } from 'express-jwt';
-import config from '../config.json';
 import db from '../_helpers/db';
-
-const { secret } = config;
 
 export default function authorize(roles: any[] = []) {
     if (typeof roles === 'string') {
@@ -10,7 +7,10 @@ export default function authorize(roles: any[] = []) {
     }
 
     return [
-        jwt({ secret, algorithms: ['HS256'] }),
+        jwt({ 
+            secret: process.env.JWT_SECRET || 'fallback-secret', 
+            algorithms: ['HS256'] 
+        }),
         async (req: any, res: any, next: any) => {
             try {
                 const token = req.auth;
