@@ -5,7 +5,6 @@ import crypto from 'crypto';
 import { Op } from 'sequelize';
 import db from '../_helpers/db';
 import Role from '../_helpers/role';
-import { ref } from 'process';
 import sendEmail from '../_helpers/send-email';
 
 export default {
