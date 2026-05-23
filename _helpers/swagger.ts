@@ -1,3 +1,10 @@
+import express from 'express';
+import swaggerUI from 'swagger-ui-express';
+import YAML from 'yamljs';
+import path from 'path';
+
+const router = express.Router();
+
 const options = {
     definition: {
         openapi: '3.0.0',
@@ -19,3 +26,10 @@ const options = {
     },
     apis: ['./accounts/*.ts']
 };
+
+const swaggerDocument = YAML.load(path.join(__dirname, '../swagger.yaml'));
+
+router.use('/', swaggerUI.serve);
+router.get('/', swaggerUI.setup(swaggerDocument));
+
+export default router;
