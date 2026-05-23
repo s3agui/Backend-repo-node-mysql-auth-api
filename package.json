@@ -5,14 +5,12 @@
     "license": "ISC",
     "author": "",
     "main": "index.js",
-
     "scripts": {
-    "start": "node dist/server.js",
-    "start:dev": "nodemon --exec ts-node ./server.ts",
-    "build": "tsc && cp swagger.yaml dist/swagger.yaml",
-    "test": "echo \"Error: no test specified\" && exit 1"
-    }
-
+        "start": "node dist/server.js",
+        "start:dev": "nodemon --exec ts-node ./server.ts",
+        "build": "tsc && cp swagger.yaml dist/swagger.yaml",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
     "devDependencies": {
         "tsx": "^4.21.0",
         "nodemon": "^2.0.22"
